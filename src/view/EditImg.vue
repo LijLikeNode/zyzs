@@ -91,19 +91,16 @@ export default {
         var opts = {
           allowTaint:true,//允许加载跨域的图片
           tainttest:true, //检测每张图片都已经加载完成
-          scale:1, // 添加的scale 参数
+          scale:1, // 添加的scale 参数  图片缩放倍数 调整清晰度
           canvas:canvas, //自定义 canvas
           logging: false, //日志开关，发布的时候记得改成false
           width:width, //dom 原始宽度
           height:height //dom 原始高度
         };
         html2canvas(content_html,opts).then(function (canvas) {
-          // console.log(canvas.toDataURL())
           canvas.style.width = width+"px";
           canvas.style.height = height+"px";
           var image = new Image();
-          // image.setAttribute('crossOrigin', 'anonymous');
-          // console.log(canvas.toDataURL)
           var url =canvas.toDataURL("image/png");
           that.finalBase64 = url;
           that.savePic(url);
@@ -111,14 +108,12 @@ export default {
         });
       },
       savePic(url){
-        let para = {
+          let para = {
             "userid":this.$route.params.userid,  
             "pic_id":this.$route.params.id,  
             "picture":url, 
             }
-            // console.log(para)
-        this.ax('publishPicture.do',{data:JSON.stringify(para)},true).then(res=>{
-          console.log(res)
+          this.ax('publishPicture.do',{data:JSON.stringify(para)},true).then(res=>{
           if(res.result=='succ'){
             popalert.fade('保存成功');
             setTimeout(()=>{

@@ -34,7 +34,6 @@ export default {
       this.ax('releasedPicture.do',{userid:this.$route.params.userid}).then(res=>{
         console.log(res)
         this.picList = [...res.pictureList]
-        // console.log(this.picList)
       })
     },
     computed:{
